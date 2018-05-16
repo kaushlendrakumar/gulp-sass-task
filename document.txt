@@ -1,0 +1,28 @@
+<!-- install gulp global --> 
+npm install gulp-cli -g
+
+<!-- install gulp local after reached in project directory -->
+npm install gulp -D
+
+<!-- install sass for gulp after reached in project directory -->
+npm install gulp-sass
+
+<!-- create a file gulpfile.js after reached in project directory -->
+touch gulpfile.js
+
+<!-- add below code in gulpfile.js -->
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+
+var sassFiles = 'assets/scss/**/*.scss',
+    cssDest = 'assets/css/';
+gulp.task('scss', function(){
+    gulp.src(sassFiles)
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest(cssDest));
+});
+gulp.task('sass-watch',function() {
+    gulp.watch(sassFiles,['scss']);
+});
+<!-- Run gulp task after reached in project directory -->
+gulp sass-watch
